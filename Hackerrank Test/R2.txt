@@ -1,0 +1,99 @@
+Calendering System:
+
+
+FR:
+1. User registration
+2. Invite for a meeting
+3. Status of other users (free/busy)
+4. View my Calender
+5. Tageting 100K Users
+
+NFR:
+1. High availablity 
+2. Availablity over consistency
+3. Low latency
+
+
+Tables- DB Schema
+
+UserDetails:
+UserId, name...
+
+MeetingDetails:
+meetingID, CreatorName, List<User>, Meetinginfo ( desc, meeting-link, attachment, meetingTime, meetingDuretion), timestamp
+
+>>> 2342, 
+
+
+Calendar:
+userId, meetingID
+userId, meetingID123
+
+>>> user1, 2342
+>>> user2, 2342
+>>> user3, 2342
+
+
+123, [MeetingDetails]
+
+Slot:
+to, from
+
+----------------------
+
+SELECT * from Calendar, MeetingDetails
+where user1==userId && Calendar.meetingID==MeetingDetails.meetingID;
+
+APIs
+1. UserAPIs(UserID ->autogeration,) 
+
+2. viewCalender(userID, to, from, currTimestamp)
+{
+  List<Meetings>: [
+    Meetings1: meetingID, from , to, name ,
+    Meetings2: '1/6/2021: 12AM'- '1/6/2021: 5PM'...,
+    ]
+}
+
+
+
+viewCalender(5, 1/6/2021, 5/6/2021)
+{
+  Date: {
+    1/6/2021: true,
+    2/6/2021: false,
+    3/6/2021: false,
+    4/6/2021: false,
+    5/6/2021: false,
+  }
+}
+
+3. getMeetingDetails(meetingID) {
+  meetingID, CreatorName, List<User>, Meetinginfo ( desc, meeting-link, attachment, meetingTime, meetingDuretion), timestamp
+}
+
+
+
+4. inviteMeeting(CreatorUser, List<User>, Meetinginfo( desc, meeting-link, attachment, meetingTime, meetingDuretion), timestamp); 
+
+
+
+Flow diagram
+
+Client -> LB -> Web Server  <-> UserService -> Database (SQL DB)
+Client -> LB -> Web Server -> CalenderService -> (cache) <-> DB
+                                  ^
+                                  |
+Client -> LB -> Web Server -> InviteService -> DB
+                                  |
+                            MessagingQueue ( currTimestamp, inviteTime-30m, inviteTime)
+                                  |
+                            NotificationService
+                                  |
+                              WebsocketManagerService
+  
+  
+
+
+Calculation of Space
+Possibilities / Improvements

@@ -1,0 +1,129 @@
+public class HelloWorld {
+
+  public static void PrintFactors(List<Integer> list, int n, int index) {    //(list, 12, 2)    //([2], 6, 2)   
+    if(n==1) {
+      for(int i=0; i<list.size(); i++) {
+        if(i!==list.size()-1) System.out.print(list.get(i)+" * ");      /[2*2*3
+        else System.out.print(list.get(i));
+      }
+      System.out.println();
+      return;
+    }
+    
+    
+    for(int i=index; i<=n/2; i++) {    // i=2 to 12    // i=6 to 6    
+      if(n%i==0) {
+        list.add(i);                // [2,        // [2,         
+        PrintFactors(list, n/i, i);  // ([2], 6, 2)    // ([2], 2, 3)        O(n/2)^n= O(n^n)- Time complexity
+                                                                                       // O(n)- space complexity
+        
+        list.remove(list.size()-1);        
+      }
+    }
+  }
+  public static void PrintFactors(int n) {
+    System.out.println(n+" * 1");          // 12 * 1
+    PrintFactors(new ArrayList(), n, 2);    //(list, 12, 2)
+  }
+  
+  public static void main(String[] args){
+    //Prints "Hello, World" to the terminal
+    // System.out.println("Hello, World");
+    PrintFactors(12);
+    
+  }
+
+}
+
+Write a program that takes an integer and prints out all ways to multiply smaller integers that equal the original number, without repeating sets of factors. In other words, if your output contains 4 * 3, you should not print out 3 * 4 again as that would be a repeating set. Note that this is not asking for prime factorization only
+
+
+PrintFactors(12)
+
+12 * 1
+6 * 2
+4 * 3
+3 * 2 * 2
+  
+  
+8:
+2*2*4
+4*2
+                                                                          
+                                                                          
+            
+                                                                          
+                                                                          
+                                                                          
+                                                                          
+Given a number of points on a plane. Implement a method that, given a center point and number P would return the P points nearest to the center point.
+                                                                          
+public interface PointsOnAPlane {
+    /**
+     * Stores a given point in an internal data structure
+     */
+    void addPoint(Point point);
+ 
+    /**
+     * For given 'center' point returns a subset of 'p' stored points
+     * that are closer to the center than others.
+     *
+     * E.g.
+     * Stored:
+     * (1, 1)
+     * (0, 3)
+     * (0, 4)
+     * (0, 5)
+     * (0, 6)
+     * (0, 7)
+     *
+     * findNearest(new Point(0, 0), 3) -> (1, 1), (0, 3), (0, 4)
+     */
+    Collection<Point> findNearest(Point center, int p);
+ 
+    static class Point {
+        final int x;
+        final int y;
+ 
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+  
+    // Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)))
+}
+                                                                          
+class Solution implement PointsOnAPlane {
+  
+  List<Point> list= new ArrayList<>();
+  
+  void addPoint(Point point) {    
+    list.add(point);    
+  }
+  
+  List<Point> findNearest(Point center, int p) {
+    
+    List<Point> res= new ArrayList<>();
+    if(p<=0) return res;
+    
+    Collections.sort(list, (a,b -> (
+      int x1= Math.abs(center.x-a.x);
+      int y1= Math.abs(center.y-a.y);
+      
+      int x2= Math.abs(center.x-b.x);
+      int y2= Math.abs(center.y-b.y);
+      
+      return x1*x1+y1*y1 < x2*x2+y2*y2;
+    )));
+    
+    for(int i=0; i<p; i++) {
+      res.add(new Point(list.get(i)[0], list.get(i)[1]);
+    }
+    return res;
+              
+    return list(p);
+  }
+}
+                                                                          
+                                                                          

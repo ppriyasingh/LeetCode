@@ -1,0 +1,79 @@
+b = This is test string - n
+         ^       ^ 
+s = tist , 4 -m 
+
+Ans = t stri
+
+
+s || b can be empty - not possible
+
+minLen= 7, currLen=7;
+
+freq:
+t-2
+i-1
+s-1
+
+
+curr:
+t-2
+s-3
+e-1
+
+
+1. 
+2. freq 
+
+
+
+String smallestStringMAtching(String b, String s) {
+
+    Map<Character, Integer> map= new HashMap<>(), curr=  new HashMap<>();
+    for(char c: s) {
+        map.put(c, map.getOrDefault(c,0)+1);
+    }
+    
+    int left=0, right=0, minLen= Integer.MAX_VALUE;
+    
+    while(right<b.length()) {
+    
+        char c= b.charAt(right);
+        curr.put(c, curr.getOrDefault(c,0)+1);
+        
+        if(right-left+1> s.length()) {
+            
+            char lc= curr.get(b.charAt(left));
+            
+            if(!map.containsKey(lc) && right-left+1>s.length()) {
+                left++;
+                
+                //reval
+                if(curr.constainsKey(lc)) {
+                    if(curr.get(lc)==1) curr.remove(lc);
+                    else curr.put(lc, curr.get(lc)-1);
+                }
+                if(minLen>right-left+1) 
+                
+                
+            }
+            right++;
+        }
+        
+    }
+
+}
+
+
+
+n= "218765"    - 251876 - 251678
+Ans: "251678"
+
+n = "1234"
+Ans: "1243"
+
+n = "4321"
+Ans: "Not Possible"
+
+n = "534976"
+Ans: "536479"
+

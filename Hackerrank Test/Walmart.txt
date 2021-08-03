@@ -1,0 +1,78 @@
+import java.util.*;
+
+
+public class HelloWorld{
+
+    public class Employee {
+    	public int id;
+    	public String employeeName;
+    	public String designation;
+	
+	Employee(int id, String employeeName, String designation){
+		this.id= id;
+		this.employeeName= employeeName;
+		this.designation= designation;
+	}
+	void setId(int id) { 	this.id= id;	}
+	int getId() { return this.id; }
+	
+	void setEmployeeName(String name) {
+		this.employeeName= name;
+	}
+	String getEmployeeName() {
+	return this.employeeName;
+	}
+	
+	void setDesignation(String designation) {
+		this.designation= designation;
+	}
+	String getDesignation() {
+	return this.designation;
+	}
+	
+}
+     public static Map<String, Employee> sortByName(Map<String, Employee> data) {
+	
+	    List<Map.Entry<String,Employee>> list = new LinkedList<>(data.entrySet());
+	   // Comparator c
+		Collections.sort(list, new Comparator<Map.Entry<String,Employee>> (){
+		    
+		    public int compare(Map.Entry<String,Employee> obj1, Map.Entry<String,Employee> obj2) {
+		        
+    		    Employee e1= obj1.getValue();
+    		    Employee e2= obj2.getValue();
+    		    
+    		    return obj1.employeeName- obj2.employeeName;
+		    }
+		});
+		
+		LinkedHashMap<String, Employee> sortedData= new LinkedHashMap<>();
+		for(Map.Entry<String, Employee> e: list) {
+		    sortedData.put(e.getKey(), e.getValue());
+		}
+		    
+		    
+		return sortedData;
+	}
+	
+	public static void main(String[] args) {
+	
+		Map<String, Employee> data= new HashMap<>();
+		data.put("A", new Employee(1, "Sachin", "Software Engineer"));
+		data.put("A", new Employee(2, "Aditya", "Senior Software Engineer"));
+		
+		System.out.println("Unmodified data:");
+		for(String key: data.keySet()) {
+			Employee temp= data.get(key);
+			System.out.println(temp.getEmployeeName());
+		}
+		
+		Map<String, Employee> sortedData= sortByName(data);
+		
+		System.out.println("Modified Sorted data:");
+		for(String key: data.keySet()) {
+			Employee temp= data.get(key);
+			System.out.println(temp.getEmployeeName());
+		}
+	}
+}

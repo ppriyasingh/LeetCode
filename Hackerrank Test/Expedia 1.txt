@@ -1,0 +1,121 @@
+Partition a singly link list around a value x
+4 -> 10 -> 2 -> 3 -> 9 -> 5 ->  1 -> null
+x = 5
+
+
+-1 -> 4 -> 2 -> 3 -> 1
+-1 -> 10 -> 9 -> 5
+
+
+4 -> 2 -> 3 -> 1 -> 10 -> 9 -> 5
+
+1-> null
+x=5
+
+
+
+
+Node partition(Node head, int x){
+    // edge cases
+    if( head==null) return null;
+    if( head.next==null && head.val!=x) return head;
+    
+  
+  Node first= new Node(-1);
+  Node second= new Node(-1);
+  Node temp=head, firstHhead= first, secHead=second;
+  
+  while( temp!=null) {
+  
+    if(temp.val<x) {
+        first.next= temp;
+      first= first.next;                
+    } else {
+        second.next= temp;
+      second= second.next;
+    }
+    temp= temp.next;
+  }
+  
+  first.next= secHead.next;
+  second.next=null;
+  
+    return firstHhead.next;
+}
+
+// 1->2->3
+
+
+
+
+Given a list of strings words and a string pattern, return a list of words[i] that match pattern.
+ 
+Example 1:
+Input: words = ["abb","deq","mee","aqq","dkd","ccc"], pattern = "abc"
+Output: ["mee","aqq"]
+
+Example 2:
+Input: words = ["abc","deq","mee","aqq","dkd","ccc"], pattern = "aba"
+Output: [“dkd”]
+
+Example 3:
+Input: [“a”,”b”,”c”], pattern = “e”
+Output = [“a”,”b”,”c”]
+
+p : w
+a-a
+b-b
+c-b
+
+w:p
+a-a
+b-b
+c-c
+
+
+List solution( String w, String p) {
+    
+    if(w.length()!=p.length()) return false;
+    
+    Map<Character, Character> wp= new HashMap<>(), pw= new HashMap<>();
+    int i=0;
+    
+    for(i=0; i<w.length(); i++) {
+    
+    char ww= w.charAt(i);
+    char pp= p.charAt(i);
+    
+        if(wp.containsKey(ww)) {
+            if(wp.get(ww)!=pp) break;
+        } else wp.put(ww,pp);
+        
+        if(pw.containsKey(pp)) {
+            if(pw.get(pp)!=ww) break;
+        } else pw.put(pp, ww);
+    }
+    
+    if(i==w.length()) return true;
+    return false;
+    
+}
+w: abc p: abb
+
+1:
+a-a
+b-b
+c-b
+
+
+2:
+a-a
+b-b
+
+
+
+
+
+
+
+
+
+
