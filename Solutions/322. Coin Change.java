@@ -54,6 +54,10 @@ public class Solution {
   }
 }
 
+//T(O): Time complexity : O(S*n). where S is the amount, n is denomination count. In the worst case the recursive tree of the algorithm has height 
+//of S and the algorithm solves only S subproblems because it caches precalculated solutions in a table. Each subproblem is computed with nn iterations, 
+//one by coin denomination. Therefore there is O(S*n) time complexity.
+
 // Approach #3 (Dynamic programming - Bottom up) [Accepted]
 public class Solution {
   
