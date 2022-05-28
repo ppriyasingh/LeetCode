@@ -44,3 +44,23 @@ class Solution {
         return result;
     }
 }
+
+// My Solution
+class Solution {
+    public int maxProduct(int[] nums) {
+        if(nums.length == 1) return nums[0];
+        
+        int max_product = nums[0], min_product = nums[0], ans= nums[0];
+        
+        for(int i=1; i<nums.length; i++) {
+            
+            int temp= max_product;
+            
+            max_product= Math.max(Math.max(max_product*nums[i], min_product*nums[i]), nums[i]);
+            min_product= Math.min(Math.min(temp*nums[i], min_product*nums[i]), nums[i]);
+            
+            if(max_product > ans) ans = max_product;
+        }
+        return ans;
+    }
+}
