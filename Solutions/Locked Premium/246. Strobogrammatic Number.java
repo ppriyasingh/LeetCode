@@ -118,3 +118,21 @@ class Solution {
 //Let N be the length of the input string.
 // T: O(N/2) = O(N), For each of the N digits in the string, we're doing a single lookup and comparison.
 // S: O(1), We are only using constant extra space. This is an in-place algorithm.
+
+
+// My Solution
+class Solution {
+    public boolean isStrobogrammatic(String num) {
+        String newNum= new String();
+        
+        for(char c: num.toCharArray()) {
+            if(c=='0') newNum= newNum+"0";
+            else if(c=='1') newNum= "1"+newNum;
+            else if(c=='6') newNum= "9"+newNum;
+            else if(c=='9') newNum= "6"+newNum;
+            else if(c=='8') newNum= "8"+newNum;
+            else return false;
+        }
+        return Integer.parseInt(newNum) == Integer.parseInt(num);
+    }
+}
