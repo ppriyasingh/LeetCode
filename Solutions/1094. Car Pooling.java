@@ -1,4 +1,5 @@
-/*
+/* Ver Similar to 253. Meeting Rooms II: https://leetcode.com/problems/meeting-rooms-ii/
+
 Solution
 Overview
 It is one of the classical problems related to intervals, and we have some similar problems such as Meeting Rooms II at LeetCode. Below, two approaches are introduced: the simple Time Stamp approach, and the Bucket Sort approach.
