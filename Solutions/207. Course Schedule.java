@@ -43,3 +43,44 @@ public boolean canFinish(int n, int[][] prerequisites) {
                 if (--degree[j] == 0) bfs.add(j);
         return bfs.size() == n;
     }
+
+// My Solution
+class Solution {
+    // T(O): O(N + E), where N is the number of courses, and E is the number of dependencies.
+    // S(O): O(N + E)
+    public boolean isCyclic(int i, boolean[] visited, boolean[] checked, Map<Integer, List<Integer>> adjList) {
+        
+        if(visited[i]) return true;
+        if(checked[i]) return false;
+        
+        visited[i] = true;
+        boolean flag = false;
+        for(int x: adjList.getOrDefault(i, new ArrayList<>())) {
+            if(isCyclic(x, visited, checked, adjList)) {
+                flag = true;
+                break;
+            }
+        }
+        
+        visited[i] = false;
+        checked[i] = true;
+        return flag;
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> adjList= new HashMap<>();
+        
+        for(int[] p: prerequisites) {
+            List<Integer> list= adjList.getOrDefault(p[1], new ArrayList<>());
+            list.add(p[0]);
+            adjList.put(p[1], list);
+        }
+        boolean[] visited = new boolean[numCourses];
+        boolean[] checked = new boolean[numCourses];
+        
+        
+        for(int i=0; i<numCourses; i++) {
+            if(isCyclic(i, visited, checked, adjList)) return false;
+        }
+        return true;
+    }
+}
