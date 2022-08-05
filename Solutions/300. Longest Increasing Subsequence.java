@@ -190,3 +190,22 @@ Space complexity: O(N)
 
 When the input is strictly increasing, the sub array will be the same size as the input.
 */
+
+// Another Binary Search:
+class Solution {
+    // T(O): N(LogN)
+    // S(O): N
+    public int lengthOfLIS(int[] nums) {
+        int len = 0;
+        int[] dp = new int[nums.length];
+        
+        for(int num: nums) {
+            int index = Arrays.binarySearch(dp, 0, len, num);
+            if(index < 0) index = -index-1;
+            if(index == len) len++;
+            dp[index] = num;
+        }
+        
+        return len;
+    }
+}
